@@ -8,7 +8,6 @@ Chúng ta cài đặt theo từng bước dưới đây:
 <pre><code>pip install "tensorflow<2.11" <2.11"</code></pre>
 Đối với môi trường linux:
 <pre><code>pip install tensorflow<2.11"</code></pre>
-có thể thay pip bằng pip3 đối với ai sử dụng python 3.
 **Bước 2**: cài thư viện pandas
 <pre><code>pip install pandas</code></pre>
 **Bước 3**: cài thư viện keras
@@ -19,5 +18,5 @@ có thể thay pip bằng pip3 đối với ai sử dụng python 3.
 <pre><code>pip install matplotlib</code></pre>
 **Bước 6**: cài thư viện sklearn
 <pre><code>pip install -U scikit-learn</code></pre>
-
+có thể thay pip bằng pip3 đối với ai sử dụng python 3.
 
