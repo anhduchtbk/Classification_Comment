@@ -1,6 +1,6 @@
 # Phân loại bình luận tích cực, tiêu cực trên các trang thương mại điện tử
 
-Chúng ta cài đặt môi trường theo từng bước dưới đây:
+Chúng ta cài đặt môi trường theo từng bước dưới đây:<br/>
 **Bước 1**: cài thư viện tensoflow
 Đối với môi trường macOS:
 <pre><code>pip install tensorflow</code></pre>
