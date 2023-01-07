@@ -66,17 +66,26 @@ def remove_unmeaning_word(text):
     text = re.sub(r':[D]+','', text) #loai bo ky tu :D :DDDDD
     return text
 
+#Thay the cac tu viet tat trong tieng Viet
+def replace_acronym(text):
+    text = re.sub(r'\s+k\s+|\s+K\s+|^k\s+|^K\s+|\s+k$|\s+K$|\s+ko\s+|\s+Ko\s+|^ko\s+|^Ko\s+|\s+ko$|\s+Ko$'
+                  ,' không ', text)
+    text = re.sub(r'\s+đc\s+|\s+Đc\s+|^đc\s+|^Đc\s+|\s+đc$|\s+Đc$', ' được ', text)
+    text = re.sub(r'\s+nhg\s+|\s+Nhg\s+|^nhg\s+|^Nhg\s+|\s+nhg$|\s+Nhg$', ' nhưng ', text)
+    text = re.sub(r'\s+mk\s+|\s+Mk\s+|^mk\s+|^Mk\s+|\s+mk$|\s+Mk$', ' mình ', text)
+    return text
+
+
 #Tong hop cac ham lai de lam sach du lieu
 def clean_up_pipeline(sentence):
     cleaning_utils = [remove_hyperlink,
-                        remove_unmeaning_word,
-                        to_lower,
-                        remove_number,
-                        remove_punctuation,
-                        remove_emoji,
-                        remove_whitespace,
-                        replace_newline,
-                         ]
+                      to_lower,
+                      remove_number,
+                      remove_punctuation,
+                    remove_emoji,
+                      replace_acronym,
+                    remove_whitespace,
+                    replace_newline]
     for o in cleaning_utils:
         sentence = o(sentence)
     return sentence
@@ -123,6 +132,8 @@ def LMTS(input_length, input_dim, x_train, x_test, y_train, y_test):
     lstm_model.summary()
     history = lstm_model.fit(x_train, y_train, epochs=20, batch_size=32, shuffle = True,
                         validation_data=(x_test, y_test))
+    #Save the model
+    lstm_model.save('lstm_model.h5')
     y_predict = [1 if o>0.5 else 0 for o in lstm_model.predict(x_test)]
     return history, y_predict
 
