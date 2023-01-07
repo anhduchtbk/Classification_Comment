@@ -5,7 +5,7 @@ Chúng ta cài đặt môi trường theo từng bước dưới đây:<br/>
 Đối với môi trường macOS:
 <pre><code>pip install tensorflow</code></pre>
 Đối với môi trường windows:
-<pre><code>pip install "tensorflow<2.11" <2.11"</code></pre>
+<pre><code>pip install "tensorflow<2.11"</code></pre>
 Đối với môi trường linux:
 <pre><code>pip install tensorflow<2.11"</code></pre>
 **Bước 2**: cài thư viện pandas
