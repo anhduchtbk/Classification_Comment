@@ -1,10 +1,6 @@
 import re
-import os
-import string
 import numpy as np
 import pandas as pd
-
-import tensorflow as tf
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -14,12 +10,10 @@ from keras_preprocessing.sequence import pad_sequences
 
 from keras.models import Sequential
 from keras.layers import Dense, LSTM, Embedding, Dropout
-from tensorflow.keras.models import Model
 
 from sklearn.metrics import confusion_matrix,f1_score, precision_score,recall_score
 import seaborn as sns
 import matplotlib.pyplot as plt
-
 
 #lay du lieu tu file csv bang Pandas
 df = pd.read_csv('comments.csv')
@@ -145,7 +139,7 @@ def evaluating(test_y, y_predict):
     ax.set_xlabel('Predicted labels')
     ax.set_ylabel('True labels')
     ax.set_title('Confusion Matrix')
-    ax.xaxis.set_ticklabels(['Not Spam', 'Spam']); ax.yaxis.set_ticklabels(['Not Spam', 'Spam'])
+    ax.xaxis.set_ticklabels(['Positive', 'Negative']); ax.yaxis.set_ticklabels(['Positive', 'Negative'])
     plt.show()
 
 if __name__ == '__main__':
