@@ -2,8 +2,9 @@ import re
 import numpy as np
 import pandas as pd
 
+import tensorflow as tf
+
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 
 from keras.preprocessing.text import Tokenizer
 from keras_preprocessing.sequence import pad_sequences
@@ -19,7 +20,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('comments.csv')
 
 
-df = df.dropna() #Loai bo cac phan tu trong trong du lieu
+df = df.dropna() #Loai bo cac phan tu empty trong du lieu
 df = df.drop_duplicates() #Loai bo cac phan tu bi trung nhau trong tap du lieu
 
 #Tien xu ly du lieu 
@@ -97,22 +98,22 @@ comments_train, comments_test, label_train, label_test = train_test_split(df['te
 x_train = [clean_up_pipeline(o) for o in comments_train]
 x_test = [clean_up_pipeline(o) for o in comments_test]
 
-#Label Encoding
-le = LabelEncoder()
-y_train = le.fit_transform(label_train.values) #numpy array
-y_test = le.transform(label_test.values)
+y_train = label_train.values #numpy array
+y_test = label_test.values
 
 #Tokenizing
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(x_train)
 
-print(tokenizer.word_index)
+# print(tokenizer.word_index)
 
 x_train_features = np.array(tokenizer.texts_to_sequences(x_train))
 x_test_features = np.array(tokenizer.texts_to_sequences(x_test))
 
+# print(x_test_features)
 x_train_features = pad_sequences(x_train_features, maxlen=50)
 x_test_features = pad_sequences(x_test_features, maxlen=50)
+# print(x_test_features)
 
 #Model
 def LMTS(input_length, input_dim, x_train, x_test, y_train, y_test):
@@ -152,7 +153,33 @@ def evaluating(test_y, y_predict):
     ax.set_title('Confusion Matrix')
     ax.xaxis.set_ticklabels(['Positive', 'Negative']); ax.yaxis.set_ticklabels(['Positive', 'Negative'])
     plt.show()
+def get_predict(cmts):
+    # tokenizer = Tokenizer()
+    my_model = tf.keras.models.load_model('/Users/ducanh/Desktop/HySpace/HySpace_gitlab/Untitled/Classification_Comment/lstm_model.h5')
+    cmts = np.array(cmts)
+    cmts = tokenizer.texts_to_sequences(cmts)
+    cmts = pad_sequences(cmts, maxlen=50)
+    result = my_model.predict(cmts)
+    return result
 
+def read_from_file():
+    # try:
+        file = open("/Users/ducanh/Desktop/HySpace/HySpace_gitlab/Untitled/Classification_Comment/text.txt", "r", encoding='utf-8')
+        cmts = file.readlines()
+        for i in range(len(cmts)):
+            cmts[i] = clean_up_pipeline(cmts[i]).strip()
+        list_result = get_predict(cmts)
+        print(list_result)
+        for i in list_result:
+            if(i > 0.5):
+                print("Positive")
+            else:
+                print("Negative")
+    # except:
+    #     print('File not found')
 if __name__ == '__main__':
     lmts, y_predict = LMTS(50,1557, x_train_features, x_test_features, y_train, y_test)
     evaluating(y_test, y_predict)
+    read_from_file()
+
+    
