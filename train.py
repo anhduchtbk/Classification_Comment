@@ -153,33 +153,9 @@ def evaluating(test_y, y_predict):
     ax.set_title('Confusion Matrix')
     ax.xaxis.set_ticklabels(['Positive', 'Negative']); ax.yaxis.set_ticklabels(['Positive', 'Negative'])
     plt.show()
-def get_predict(cmts):
-    # tokenizer = Tokenizer()
-    my_model = tf.keras.models.load_model('/Users/ducanh/Desktop/HySpace/HySpace_gitlab/Untitled/Classification_Comment/lstm_model.h5')
-    cmts = np.array(cmts)
-    cmts = tokenizer.texts_to_sequences(cmts)
-    cmts = pad_sequences(cmts, maxlen=50)
-    result = my_model.predict(cmts)
-    return result
 
-def read_from_file():
-    # try:
-        file = open("/Users/ducanh/Desktop/HySpace/HySpace_gitlab/Untitled/Classification_Comment/text.txt", "r", encoding='utf-8')
-        cmts = file.readlines()
-        for i in range(len(cmts)):
-            cmts[i] = clean_up_pipeline(cmts[i]).strip()
-        list_result = get_predict(cmts)
-        print(list_result)
-        for i in list_result:
-            if(i > 0.5):
-                print("Positive")
-            else:
-                print("Negative")
-    # except:
-    #     print('File not found')
 if __name__ == '__main__':
     lmts, y_predict = LMTS(50,1557, x_train_features, x_test_features, y_train, y_test)
     evaluating(y_test, y_predict)
-    read_from_file()
 
     
