@@ -131,7 +131,7 @@ def LMTS(input_length, input_dim, x_train, x_test, y_train, y_test):
 
     lstm_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     lstm_model.summary()
-    history = lstm_model.fit(x_train, y_train, epochs=20, batch_size=32, shuffle = True,
+    history = lstm_model.fit(x_train, y_train, epochs=30, batch_size=32, shuffle = True,
                         validation_data=(x_test, y_test))
     #Save the model
     lstm_model.save('lstm_model.h5')

@@ -18,5 +18,6 @@ Chúng ta cài đặt môi trường theo từng bước dưới đây:<br/>
 <pre><code>pip install matplotlib</code></pre>
 **Bước 6**: cài thư viện sklearn
 <pre><code>pip install -U scikit-learn</code></pre>
-có thể thay pip bằng pip3 đối với ai sử dụng python 3.
-
+có thể thay pip bằng pip3 đối với ai sử dụng python 3.<br/>
+Nếu muốn xây dựng lại mô hình chạy file train.py.<br/>
+Có thể thêm bình luận do bản thân thêm vào để thử vào file text.txt rồi chạy file predicts.py xem đánh giá.
